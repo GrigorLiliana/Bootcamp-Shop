@@ -1,0 +1,55 @@
+.cart {
+  padding: 6px;
+  background-color: #28a745;
+  margin: 0 0 0 10px;
+  border-radius: 5px;
+}
+.fa-shopping-cart {
+  padding: 5px;
+  color: #ffffff;
+}
+.allCourses,
+#bestCourses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem auto;
+}
+.card {
+  margin: 2rem;
+}
+
+footer {
+  color: #ffffff;
+  background-color: rgb(112, 111, 111);
+  padding: 20px 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #28a745;
+}
+
+.card-body a {
+  text-align: center;
+}
+.detailsProduct {
+  padding: 9rem 3rem;
+  display: flex;
+}
+
+#imgDet {
+  width: 600px;
+  margin: 2rem;
+}
+#prodDet {
+  width: 600px;
+  margin: 2rem;
+}
+#prodDet ul {
+  padding-inline-start: 0;
+}

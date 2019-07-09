@@ -14,33 +14,33 @@
     <header>
     <?php include_once 'header.php' ?>
     </header>
-<main>
-<?php include_once 'db_connect.php';
+    <main>
+    <?php include_once 'db_connect.php';
 
-$query = "select * from Courses";
-$result = mysqli_query($conn, $query);
+    $query = "select * from Courses where course_id =" . $_GET['id'];
 
-echo "<section class = 'allCourses'>";
-while ($db_record = mysqli_fetch_assoc($result)) {
-    $courseId = $db_record['course_id'];
-    $courseImage = $db_record['image_src'];
-    $courseTitle = $db_record['title'];
-    $coursePrice = $db_record['price'];
-    $courseDetails = $db_record['description'];
+    $result1 = mysqli_query($conn, $query);
+    while($course = mysqli_fetch_assoc($result1)){
+    $courseId = $course['course_id'];
+    $courseImage = $course['image_src'];
+    $courseTitle = $course['title'];
+    $coursePrice = $course['price'];
+    $courseDetails = $course['description'];
+    $courseAuthor = $course['author'];
+    $courseDate = $course['date'];
 ?>
 
-<div class="card" style="width: 18rem;">
-  <img src="<?php echo $courseImage?>" class="card-img-top" alt="...">
-  <div class="card-body">
+<div class="detailsProduct" >
+  <img src="<?php echo $courseImage?>" id="imgDet" class="card-img-top" alt="...">
+  <div id="prodDet">
     <h5 class="card-title"><?php echo $courseTitle?></h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Only <?php echo $coursePrice?>€!!</li>
+  <ul>
+  <li>Author: <?php echo $courseAuthor?></li>
+  <li>Date: <?php echo $courseDate?></li>
+  <li>Description: <?php echo $courseDetails?></li>
+<li>Only <?php echo $coursePrice?>€!!</li>
   </ul>
-  <div class="card-body">
-    <a href="product.php?id=<?php echo $courseId;?>" class="card-link">More details</a>
-    <a href="#" class="card-link">Add to cart</a>
-  </div>
+    <a href="#" class="card-link">Add to car</a>
 </div>
 
 <?php }
