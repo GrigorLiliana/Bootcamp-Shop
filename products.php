@@ -11,6 +11,8 @@
     <link rel='stylesheet' href='styles/style.css'>
 </head>
 <body>
-    <?php include_once 'header.php' ?>
+    <header><?php include_once 'header.php' ?></header>
+
+<footer><?php include_once 'footer.php' ?> </footer>
 </body>
 </html>
