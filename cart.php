@@ -62,7 +62,7 @@
                                         ?>
                                         <tr>
                                             <td>
-                                                <a href="delete_item.php?id=<?php echo $courseId; ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="delete_item.php?id=<?php echo $courseId; ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></span></a>
                                             </td>
                                             <td><?php echo $courseTitle; ?></td>
                                             <td><?php echo number_format('id', 2); ?></td>

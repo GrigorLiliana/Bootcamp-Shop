@@ -36,12 +36,26 @@
             <li class="nav-item">
                 <a class="nav-link enable" href="my-acount.php" tabindex="-1" aria-disabled="false">My Account</a>
             </li>
+            <?php if(!$_SESSION["user"]){
+                ?>
             <li class="nav-item">
                 <a class="nav-link enable login" href="login.php" tabindex="-1" aria-disabled="false">LOGIN</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link enable signup" href="signup.php" tabindex="-1" aria-disabled="false">SIGNUP</a>
             </li>
+            <?php } 
+            if($_SESSION["user"]){
+                ?>
+                <li class="nav-item">
+                <a class="nav-link enable login" href="logout.php" tabindex="-1" aria-disabled="false">LOG OUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link enable signup" href="#" tabindex="-1" aria-disabled="false"><strong>Wellcome <?php echo $_SESSION["user"] ?></strong></a>
+            </li>
+
+            <?php } 
+                ?>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

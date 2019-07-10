@@ -9,4 +9,4 @@ if (!in_array($_GET['id'], $_SESSION['cart'])) {
     $_SESSION['message'] = 'Product already in cart';
 }
 
-header('location: index.php');
+header("location:" . $_GET['page']);

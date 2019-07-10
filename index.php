@@ -1,7 +1,7 @@
 <?php
 session_start();
 //initialize cart if not set or is unset
-var_dump($_SESSION);
+
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
@@ -86,7 +86,7 @@ unset($_SESSION['qty_array']);
                         </ul>
                         <div class="card-body">
                             <a href="product.php?id=<?php echo $courseId; ?>" class="card-link">More details</a>
-                            <a href="add_cart.php?id=<?php echo $courseId ?>" class="card-link">Add to cart</a>
+                            <a href="add_cart.php?id=<?php echo $courseId ?>&page=index.php" class="card-link">Add to cart</a>
                         </div>
                     </div>
 

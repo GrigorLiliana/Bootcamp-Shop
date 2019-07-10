@@ -99,18 +99,19 @@
       }
       if (isset($_POST['repeatpassword'])) {
         $repPass = password_verify(htmlspecialchars($_POST['repeatpassword']), $pass);
-        echo $repPass;
+        if(!$repPass){
+          $repPassErr = "**Your passwords must be equals";
+        }
       }
 
       // All required fields are well filled
       if ($name && $adress && $email && $pass && $repPass) {
         echo $name . " " . $adress . " " . $email . " " . $pass . " " . $repPass;
         $queryValid = "INSERT INTO users (user_id, name, adress, email, hash_pass) VALUES (NULL,'$name','$adress','$email', '$pass');";
-
         $resultValid = mysqli_query($conn, $queryValid);
-        var_dump($resultValid);
         if ($resultValid) {
-          $signin = "**Congratulations, you are successiful signin!**";
+          $_SESSION["user"] = $name;
+          header("location: index.php?user=");
         }
       }
     }

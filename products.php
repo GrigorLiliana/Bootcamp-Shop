@@ -1,108 +1,137 @@
-<?php session_start(); ?>
+<?php
+session_start();
+//initialize cart if not set or is unset
+
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = array();
+}
+
+//unset quantity
+unset($_SESSION['qty_array']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel='stylesheet' href='styles/style.css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel='stylesheet' href='styles/style.css'>
 </head>
+
 <body>
-    <header>
+  <header>
     <?php include_once 'header.php' ?>
-    </header>
-<main>
-<?php include_once 'db_connect.php';
+  </header>
+  <main>
+    <div class="container">
+      <?php
+      //info message
+      if (isset($_SESSION['message'])) {
+        ?>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="alert alert-info text-center">
+              <?php echo $_SESSION['message']; ?>
+            </div>
+          </div>
+        </div>
+        <?php
+        unset($_SESSION['message']);
+      } ?>
 
-// check if the category is not selected
-//and if not selected display all the courses
+      <?php include_once 'db_connect.php';
 
-if(!isset($_GET['category'])){
-$query = "select * from Courses";
-$result = mysqli_query($conn, $query);
+      // check if the category is not selected
+      //and if not selected display all the courses
 
-echo "<section class = 'allCourses'>";
-while ($db_record = mysqli_fetch_assoc($result)) {
-    $courseId = $db_record['course_id'];
-    $courseImage = $db_record['image_src'];
-    $courseTitle = $db_record['title'];
-    $coursePrice = $db_record['price'];
-    $courseDetails = $db_record['description'];
-?>
+      if (!isset($_GET['category'])) {
+        $query = "select * from Courses";
+        $result = mysqli_query($conn, $query);
 
-<div class="card" style="width: 18rem;">
-  <img src="<?php echo $courseImage?>" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-title"><?php echo $courseTitle?></h3>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Only <?php echo $coursePrice?>€!!</li>
-  </ul>
-  <div class="card-body">
-    <a href="product.php?id=<?php echo $courseId;?>" class="card-link">More details</a>
-    <a href="#" class="card-link">Add to cart</a>
-  </div>
-</div>
+        echo "<section id='allCourses'>";
+        while ($db_record = mysqli_fetch_assoc($result)) {
+          $courseId = $db_record['course_id'];
+          $courseImage = $db_record['image_src'];
+          $courseTitle = $db_record['title'];
+          $coursePrice = $db_record['price'];
+          $courseDetails = $db_record['description'];
+          ?>
 
-<?php }
-echo "</section>";
-}
+          <div class="card" style="width: 18rem;">
+            <img src="<?php echo $courseImage ?>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title"><?php echo $courseTitle ?></h3>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Only <?php echo $coursePrice ?>€!!</li>
+            </ul>
+            <div class="card-body">
+              <a href="product.php?id=<?php echo $courseId; ?>" class="card-link">More details</a>
+              <a href="add_cart.php?id=<?php echo $courseId ?>&page=products.php" class="card-link">Add to cart</a>
+            </div>
+          </div>
 
-// check if the category is checked
-// if checked display only the courses from this category
+        <?php }
+        echo "</section>";
+      }
 
-if(isset($_GET['category'])){
-  echo "<h2>Discover all " . $_GET['category'] . " courses</h2>";
-echo "<section class = 'allCourses byCategorie'>";
+      // check if the category is checked
+      // if checked display only the courses from this category
 
-//show the name of the category choosed
+      if (isset($_GET['category'])) {
+        echo "<h2>Discover all " . $_GET['category'] . " courses</h2>";
+        echo "<section class = 'allCourses byCategorie'>";
+
+        //show the name of the category choosed
 
 
 
-//select all the courses from the category choosed
-$cat = $_GET['category'];
-$queryC = "SELECT * FROM Courses c inner join categories k on c.id_categorie = k.id_categorie where k.categorie = '$cat'";
-$resultC = mysqli_query($conn, $queryC);
+        //select all the courses from the category choosed
+        $cat = $_GET['category'];
+        $queryC = "SELECT * FROM Courses c inner join categories k on c.id_categorie = k.id_categorie where k.categorie = '$cat'";
+        $resultC = mysqli_query($conn, $queryC);
+        echo "<section id='allCourses'>";
+        while ($db_recordC = mysqli_fetch_assoc($resultC)) {
+          $courseIdC = $db_recordC['course_id'];
+          $courseImageC = $db_recordC['image_src'];
+          $courseTitleC = $db_recordC['title'];
+          $coursePriceC = $db_recordC['price'];
+          $courseDetailsC = $db_recordC['description'];
+          $courseCategory = $db_recordC['categorie'];
+          ?>
 
-while ($db_recordC = mysqli_fetch_assoc($resultC)) {
-    $courseIdC = $db_recordC['course_id'];
-    $courseImageC = $db_recordC['image_src'];
-    $courseTitleC = $db_recordC['title'];
-    $coursePriceC = $db_recordC['price'];
-    $courseDetailsC = $db_recordC['description'];
-    $courseCategory = $db_recordC['categorie'];
-?>
+          <div class="card" style="width: 18rem;">
+            <img src="<?php echo $courseImageC ?>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title"><?php echo $courseTitleC ?></h3>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Only <?php echo $coursePriceC ?>€!!</li>
+            </ul>
+            <div class="card-body">
+              <a href="product.php?id=<?php echo $courseIdC; ?>" class="card-link">More details</a>
+              <a href="add_cart.php?id=<?php echo $courseId ?>&page=products.php" class="card-link">Add to cart</a>
+            </div>
+          </div>
 
-<div class="card" style="width: 18rem;">
-  <img src="<?php echo $courseImageC?>" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-title"><?php echo $courseTitleC?></h3>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Only <?php echo $coursePriceC?>€!!</li>
-  </ul>
-  <div class="card-body">
-    <a href="product.php?id=<?php echo $courseIdC;?>" class="card-link">More details</a>
-    <a href="#" class="card-link">Add to cart</a>
-  </div>
-</div>
+        <?php }
+        echo "</section>";
+      }
+      mysqli_close($conn);
+      ?>
+    </div>
 
-<?php }
-echo "</section>";
-}
-mysqli_close($conn);
-?>
-
-</main>
-<footer>
-<?php include_once 'footer.php' ?>
-</footer>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/ff9603d652.js"></script>
+  </main>
+  <footer>
+    <?php include_once 'footer.php' ?>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/ff9603d652.js"></script>
 </body>
+
 </html>

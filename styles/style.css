@@ -1,9 +1,29 @@
 h1,
 h2 {
-  text-align: center;
   margin: 2rem auto;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #28a745;
+}
+
+main {
+  margin: 35px;
+}
+
+footer {
+  color: #ffffff;
+  background-color: rgb(112, 111, 111);
+  padding: 20px 0;
+  margin: 30px 0;
+}
+
+/*-- cart related CSS --*/
 .cart {
   padding: 6px;
   background-color: #28a745;
@@ -19,39 +39,27 @@ h2 {
   padding: 5px;
   color: #ffffff;
 }
-.allCourses,
-#bestCourses {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 2rem auto;
-}
+
+/*-- products related CSS --*/
 .card {
   margin: 2rem;
-}
-
-footer {
-  color: #ffffff;
-  background-color: rgb(112, 111, 111);
-  padding: 20px 0;
-}
-
-ul {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  color: #28a745;
 }
 
 .card-body a {
   text-align: center;
 }
 
+#allCourses,
+#bestCourses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
 /* page product detailled */
-.detailsProduct {
-  padding: 9rem 3rem;
+#detailsProduct {
+  padding: 5rem 3rem;
   display: flex;
   justify-content: center;
 }

@@ -80,17 +80,26 @@
                 //check repeat pas
                 $confPass = password_verify($pass, $passSaved);
                 echo $confPass;
-                if (!confPass) {
+                if (!$confPass) {
                     $passErr = "Your password doesn't match";
                 }
             }
 
             // All required fields are well filled
             if ($email && $confPass) {
-                $login = "**Congratulations, you are successiful Login!**";
+                $login = 1;
+                
             }
             if ($login) {
-                $_SESSION['cart'];
+
+                $lastQuery = "SELECT * FROM users WHERE email = '$email'";
+                $lastResult = mysqli_query($conn, $lastQuery);
+                while($resu = mysqli_fetch_assoc($lastResult)) {
+                    $name = $resu['name'];
+                }
+
+                $_SESSION["user"] = $name;
+                header("location: index.php?user=$name");
             }
         }
         ?>
@@ -113,7 +122,7 @@
 
 
             <input type="submit" value="Login" name="submit">
-
+            <a href="forgot.php">Are you forgot the password?</a>
             <!-- Message if all fields are well filled -->
             <strong><?php echo ($login); ?></strong>
         </form>
