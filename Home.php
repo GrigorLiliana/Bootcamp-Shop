@@ -59,11 +59,11 @@
                             <h5 class="card-title"><?php echo $courseTitle ?></h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Only <?php echo $coursePrice ?>€!!</li>
+                            <li class="list-group-item">Only <?php echo $coursePrice ?>€</li>
                         </ul>
                         <div class="card-body">
                             <a href="product.php?id=<?php echo $courseId; ?>" class="card-link">More details</a>
-                            <a href="product.php?id=<?php echo $courseId; ?>" class="card-link">Add to cart</a>
+                            <a href="<?php include_once 'add_cart.php' ?>" class="card-link">Add to cart</a>
                         </div>
                     </div>
 

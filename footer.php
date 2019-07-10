@@ -21,6 +21,7 @@
             <p>Technoport SA, HUB, Belval</p>
             <p>9 Avenue des Hauts-Fourneaux</p>
             <p>4362 Esch-sur-Alzette</p>
+            <a href="contact.php"><button>Talk with us</button></a>
         </div>
     </div>
     <div class='copyright'>

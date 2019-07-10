@@ -7,35 +7,49 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="Home.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="products.php">All Courses</a>
-                    <a class="dropdown-item" href="#">Python</a>
-                    <a class="dropdown-item" href="#">Javascript</a>
-                    <a class="dropdown-item" href="#">PHP</a>
-                    <a class="dropdown-item" href="#">CSS3</a>
-                    <a class="dropdown-item" href="#">Html</a>
+
+                    <?php include_once 'db_connect.php';
+
+                    $queryCat = "select * from categories";
+                    $resultCat = mysqli_query($conn, $queryCat);
+
+                    // generate dinamic categories options linked to the DB
+
+                    while ($db_recordCat = mysqli_fetch_assoc($resultCat)) {
+                        $categorieId = $db_recordCat['id_categorie'];
+                        $categorieName = $db_recordCat['categorie']; ?>
+
+                        <!-- dinamic link -->
+                        <a class="dropdown-item" href="products.php?category=<?php echo $categorieName; ?> ">
+                            <?php echo $categorieName; ?>
+                        </a>
+                    <?php }
+                    ?>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link enable" href="#" tabindex="-1" aria-disabled="false">My Account</a>
+                <a class="nav-link enable" href="my-acount.php" tabindex="-1" aria-disabled="false">My Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link enable login" href="#" tabindex="-1" aria-disabled="false">LOGIN</a>
+                <a class="nav-link enable login" href="login.php" tabindex="-1" aria-disabled="false">LOGIN</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link enable signup" href="#" tabindex="-1" aria-disabled="false">SIGNUP</a>
+                <a class="nav-link enable signup" href="signup.php" tabindex="-1" aria-disabled="false">SIGNUP</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <!-- Add to Cart Button -->
         <div class='cart'>
-            <i class="fas fa-shopping-cart"></i>
+            <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
         </div>
     </div>
 </nav>

@@ -17,6 +17,10 @@
 <main>
 <?php include_once 'db_connect.php';
 
+// check if the category is not selected
+//and if not selected display all the courses
+
+if(!isset($_GET['category'])){
 $query = "select * from Courses";
 $result = mysqli_query($conn, $query);
 
@@ -32,7 +36,7 @@ while ($db_record = mysqli_fetch_assoc($result)) {
 <div class="card" style="width: 18rem;">
   <img src="<?php echo $courseImage?>" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title"><?php echo $courseTitle?></h5>
+    <h3 class="card-title"><?php echo $courseTitle?></h3>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Only <?php echo $coursePrice?>€!!</li>
@@ -45,6 +49,50 @@ while ($db_record = mysqli_fetch_assoc($result)) {
 
 <?php }
 echo "</section>";
+}
+
+// check if the category is checked
+// if checked display only the courses from this category
+
+if(isset($_GET['category'])){
+  echo "<h2>Discover all " . $_GET['category'] . " courses</h2>";
+echo "<section class = 'allCourses byCategorie'>";
+
+//show the name of the category choosed
+
+
+
+//select all the courses from the category choosed
+$cat = $_GET['category'];
+$queryC = "SELECT * FROM Courses c inner join categories k on c.id_categorie = k.id_categorie where k.categorie = '$cat'";
+$resultC = mysqli_query($conn, $queryC);
+
+while ($db_recordC = mysqli_fetch_assoc($resultC)) {
+    $courseIdC = $db_recordC['course_id'];
+    $courseImageC = $db_recordC['image_src'];
+    $courseTitleC = $db_recordC['title'];
+    $coursePriceC = $db_recordC['price'];
+    $courseDetailsC = $db_recordC['description'];
+    $courseCategory = $db_recordC['categorie'];
+?>
+
+<div class="card" style="width: 18rem;">
+  <img src="<?php echo $courseImageC?>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title"><?php echo $courseTitleC?></h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Only <?php echo $coursePriceC?>€!!</li>
+  </ul>
+  <div class="card-body">
+    <a href="product.php?id=<?php echo $courseIdC;?>" class="card-link">More details</a>
+    <a href="#" class="card-link">Add to cart</a>
+  </div>
+</div>
+
+<?php }
+echo "</section>";
+}
 mysqli_close($conn);
 ?>
 

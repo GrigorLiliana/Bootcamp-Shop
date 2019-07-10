@@ -1,3 +1,9 @@
+h1,
+h2 {
+  text-align: center;
+  margin: 2rem auto;
+}
+
 .cart {
   padding: 6px;
   background-color: #28a745;
@@ -37,6 +43,8 @@ a {
 .card-body a {
   text-align: center;
 }
+
+/* page product detailled */
 .detailsProduct {
   padding: 9rem 3rem;
   display: flex;
