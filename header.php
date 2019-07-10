@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
@@ -49,7 +49,7 @@
         </form>
         <!-- Add to Cart Button -->
         <div class='cart'>
-            <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
+            <a href="cart.php"><span class="badge"><?php echo count($_SESSION['cart']); ?></span><i class="fas fa-shopping-cart"></i></a>
         </div>
     </div>
 </nav>

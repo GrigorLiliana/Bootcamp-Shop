@@ -17,7 +17,7 @@
     <main>
     <?php include_once 'db_connect.php';
 
-    $query = "select * from Courses where course_id =" . $_GET['id'];
+    $query = "select c.*, k.* from Courses c inner join categories k on c.id_categorie = k.id_categorie where course_id =" . $_GET['id'];
     $result1 = mysqli_query($conn, $query);
     while($course = mysqli_fetch_assoc($result1)){
     $courseId = $course['course_id'];
@@ -27,6 +27,9 @@
     $courseDetails = $course['description'];
     $courseAuthor = $course['author'];
     $courseDate = $course['date'];
+    $courseRating = $course['rating'];
+    $courseEnrolled = $course['nr_enrolled'];
+    $courseCategory = $course['categorie'];
 ?>
 
 <div class="detailsProduct" >
@@ -36,8 +39,11 @@
   <ul>
   <li><strong>Author: </strong><?php echo $courseAuthor?></li>
   <li><strong>Date:</strong> <?php echo $courseDate?></li>
+  <li><strong>Students enrolleded:</strong> <?php echo $courseEnrolled?></li>
+  <li><strong>Category:</strong> <?php echo $courseCategory?></li>
   <li><strong>Description: </strong><?php echo $courseDetails?></li>
   <li><strong>Crazy Price!</strong> Only  <?php echo $coursePrice?>€!!</li>
+  <li><strong>Rating </strong><?php echo $courseRating?></li>
   </ul>
     <a href="#" class="card-link">Add to car</a>
 </div>

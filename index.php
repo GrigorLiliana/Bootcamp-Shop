@@ -1,4 +1,14 @@
-<?php session_start(); ?>
+<?php
+session_start();
+//initialize cart if not set or is unset
+var_dump($_SESSION);
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
+
+//unset quantity
+unset($_SESSION['qty_array']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,9 +29,22 @@
     <main>
         <div class="container">
 
-            <h1>Most Wanted Courses</h1>
+            <h1 class="page-header text-center">Most Wanted Courses</h1>
 
             <?php
+            //info message
+            if (isset($_SESSION['message'])) {
+                ?>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <div class="alert alert-info text-center">
+                            <?php echo $_SESSION['message']; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                unset($_SESSION['message']);
+            }
             //to work with databse, we use a library call : mysqli
             require_once 'db_connect.php';
             //connect to database server
@@ -63,7 +86,7 @@
                         </ul>
                         <div class="card-body">
                             <a href="product.php?id=<?php echo $courseId; ?>" class="card-link">More details</a>
-                            <a href="<?php include_once 'add_cart.php' ?>" class="card-link">Add to cart</a>
+                            <a href="add_cart.php?id=<?php echo $courseId ?>" class="card-link">Add to cart</a>
                         </div>
                     </div>
 

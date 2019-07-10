@@ -10,6 +10,11 @@ h2 {
   margin: 0 0 0 10px;
   border-radius: 5px;
 }
+
+.badge {
+  color: #ffffff;
+}
+
 .fa-shopping-cart {
   padding: 5px;
   color: #ffffff;
@@ -48,6 +53,7 @@ a {
 .detailsProduct {
   padding: 9rem 3rem;
   display: flex;
+  justify-content: center;
 }
 
 #imgDet {
@@ -61,3 +67,38 @@ a {
 #prodDet ul {
   padding-inline-start: 0;
 }
+
+/* Form signup / login style */
+#signup,
+#login {
+  width: 400px;
+  margin: 7% 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  border: 2px solid rgb(33, 197, 0);
+  border-radius: 5px;
+  padding: 1rem 3rem;
+  display: inline-block;
+  box-shadow: -1px -1px 10px 4px rgba(158, 158, 158, 1);
+  background-color: white;
+}
+#signup input,
+#login input {
+  text-align: center;
+  display: block;
+  margin: 0.5rem auto;
+  border-radius: 2px;
+  padding: 0.2rem;
+  width: 200px;
+}
+#signup small,
+#login small {
+  color: red;
+  display: block;
+}
+#signup strong,
+#login strong {
+  color: green;
+}
+
+/* the end of the form style */
