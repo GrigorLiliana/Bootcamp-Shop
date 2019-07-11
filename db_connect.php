@@ -1,8 +1,3 @@
-<?php
-define('DB_USER', 'sta38');
-define('DB_PASSWORD', 'b5y30o');
-define('DB_SERVER', 'localhost');
-define('DB_NAME', 'sta38');
 
 /*--------------- ------------------- Data connection -----------------------------------------*/
 
